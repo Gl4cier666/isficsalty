@@ -31,10 +31,11 @@ html, body {
   display: block;
   margin: auto;
   text-align: center;
+  font-size: 4rem;
 }
 
 .title {
-  font-size: 3rem;
+  font-size: 6rem;
   bottom: 20vh;
   text-align: center;
   white-space: nowrap;
@@ -54,7 +55,8 @@ html, body {
   color: white;
   border: none;
   background-color: darkorchid;
-  font-size: 3rem;
+  font-size: 10rem;
+  margin-top: 15vh;
   margin-left: 2vw;
   margin-right: 2vw;
 }

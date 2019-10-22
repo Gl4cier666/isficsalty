@@ -1,6 +1,6 @@
 <template>
  <div id="header">
-        <h1 class="saltcount">Salt Count: {{saltiness}}</h1>
+        <h1 class="saltcount">Times Counted Salty: {{saltCountDB[0].salt}}</h1>
     <img class="reactionpic" v-bind:src="ficpic">
     <h1 class=title>{{ title }}</h1>
     <div class="buttons">
@@ -11,8 +11,8 @@
 </template>
 
 <script>
-import { db } from '../main'
-import ficsalt from "../assets/isficsalty.jpg"
+import { saltDb } from '../fb';
+import ficsalt from "../assets/ficmove.gif"
 import poorfic from "../assets/arrestedfic.jpg"
 import happyfic from "../assets/happyfic.jpg"
     
@@ -21,10 +21,20 @@ export default{
     data (){
         return{
         title: 'Is Fic Salty?',
-        saltiness: 0,
+        saltCountDB: [],
         ficpic: ficsalt,
+        }
+    },
+    firestore: {
+        saltCountDB: saltDb.collection('saltcount'),
+    },
+    methods: {
         yesClick: function() {
-            this.saltiness = this.saltiness + 1;
+            let saltVar = this.saltCountDB[0].salt;
+            let saltObj = this.saltCountDB[0];
+            saltVar = saltVar + 1;
+            saltObj.salt = saltVar;
+            saltDb.collection('saltcount').doc("SvWheEd5l8ad9jQc8D8g").set(saltObj)
             this.ficpic = poorfic;
             this.title = 'Poor fic :(';
         },
@@ -32,12 +42,7 @@ export default{
             this.ficpic = happyfic;
             this.title = 'This is rare :O';
         }
-        }
-    },
-    firestore () {
-    return {
-      saltcount: db.collection('saltcount')
+        
     }
-}
 }
 </script>
